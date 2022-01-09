@@ -16,8 +16,8 @@ app.use(cors());
 io.on('connection', (socket) => {
   socket.on('message', (message) => {
     try {
-      const clientIp = socket.request.connection.remoteAddress;
-      console.log(`${message.senderUsername}(${clientIp}): ${message.message}`);
+      console.log(`${message.senderUsername}: ${message.message}`);
+      socket.broadcast.emit('message', message);
     } catch(err) {
       console.log('invalid message received')
     }
