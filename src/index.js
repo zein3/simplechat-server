@@ -5,7 +5,7 @@ const http = require('http');
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"]
   }
 })
@@ -16,7 +16,8 @@ app.use(cors());
 io.on('connection', (socket) => {
   socket.on('message', (message) => {
     try {
-      console.log(`${message.senderUsername}: ${message.message}`);
+      const clientIp = socket.request.connection.remoteAddress;
+      console.log(`${message.senderUsername}(${clientIp}): ${message.message}`);
     } catch(err) {
       console.log('invalid message received')
     }
