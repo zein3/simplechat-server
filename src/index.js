@@ -9,6 +9,7 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"]
   }
 })
+const PORT = process.env.PORT || 5000;
 
 require('dotenv').config();
 app.use(cors());
@@ -24,6 +25,6 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(process.env.SERVER_PORT, () => {
-  console.log(`listening on port ${process.env.SERVER_PORT}.`)
+server.listen(PORT, () => {
+  console.log(`listening on port ${PORT}.`)
 })
